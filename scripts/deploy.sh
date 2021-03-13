@@ -9,7 +9,7 @@ DIR=$(dirname "$(readlink -f "$0")")
 
 git fetch -f . $BUILD_BRANCH:$DEPLOY_BRANCH
 git checkout $DEPLOY_BRANCH || git checkout $BUILD_BRANCH
-git add -f dist
+git add -f dist || git checkout $BUILD_BRANCH
 git commit -m "deploy to $DEPLOY_BRANCH" || git checkout $BUILD_BRANCH
 git push origin `git subtree split --prefix dist`:$DEPLOY_BRANCH --force
 git checkout $BUILD_BRANCH
